@@ -61,3 +61,4 @@ htmlreports
 step_docs/output/
 step_aut/bin/*
 /step_eapp/src/main/webapp/pages/case/final_action_old.xhtml
+data/
