@@ -1,4 +1,4 @@
-package in.waghmare;
+package in.waghmare.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -15,9 +15,11 @@ public class Sender {
     @Autowired
     private JmsTemplate jmsTemplate;
 
+    int i=0;
+
     @Scheduled(fixedDelay = 1000L)
     public void send() {
-        this.jmsTemplate.convertAndSend("testQueue", "Hello");
+        this.jmsTemplate.convertAndSend("testQueue", "Ashish"+i++);
     }
 
 }
