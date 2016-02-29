@@ -57,7 +57,6 @@ step_uw/step_uw_services/src/main/java/com/stepsoln/uw/services/person/medicalco
 step_admin/step_configurations/src/products/COMMON/recommend/StepExchangeProductSellingRules_Older.xls
 htmlreports
 .recommenders/
-
 step_docs/output/
 step_aut/bin/*
 /step_eapp/src/main/webapp/pages/case/final_action_old.xhtml
