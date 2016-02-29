@@ -20,12 +20,7 @@ public class Client {
     private JmsTemplate jmsTemplate;
 
     public void outgoing(String message) {
-        Visit command = new Visit();
-        this.jmsTemplate.send("incoming", new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return command;
-            }
-        });
+        Visit command = new Visit(message);
+        jmsTemplate.convertAndSend("incoming",command);
     }
 }

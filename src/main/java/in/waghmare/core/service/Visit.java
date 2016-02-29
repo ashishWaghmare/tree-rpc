@@ -3,22 +3,24 @@ package in.waghmare.core.service;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 
+import java.io.Serializable;
+
 /**
  * Created by ashishw on 29/2/16.
  */
-public class Visit implements Message<String> {
-    @Override
-    public String toString() {
-        return "visit";
+public class Visit implements Serializable {
+    private String value;
+
+    public Visit(String value) {
+        this.value = value;
+
     }
 
-    @Override
-    public String getPayload() {
-        return "visit";
+    public String getValue() {
+        return value;
     }
 
-    @Override
-    public MessageHeaders getHeaders() {
-        return null;
+    public void setValue(String value) {
+        this.value = value;
     }
 }
