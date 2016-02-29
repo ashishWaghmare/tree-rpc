@@ -1,7 +1,5 @@
-package in.waghmare;
+package in.waghmare.integration.jms.client;
 
-import in.waghmare.client.Client;
-import in.waghmare.server.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,10 +16,11 @@ public class Sender {
 
     @Autowired
     private Client client;
+    private int i=0;
 
     @Scheduled(fixedDelay = 1000L)
     public void send() {
-        client.outgoing("hello");
+        client.outgoing("hel1qlo"+i++);
     }
 
 }

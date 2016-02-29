@@ -1,4 +1,4 @@
-package in.waghmare.server;
+package in.waghmare.integration.jms.server;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
