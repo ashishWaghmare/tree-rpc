@@ -8,8 +8,16 @@ import java.util.List;
 /**
  * Created by ashishw on 28/2/16.
  */
-@Data
-@Builder
+
 public class Tree<T> {
-    Node<T> root;
+
+    private Node<T> root;
+
+    public Node<T> getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node<T> root) {
+        this.root = root;
+    }
 }

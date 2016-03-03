@@ -10,10 +10,45 @@ import java.util.UUID;
 /**
  * Created by ashishw on 28/2/16.
  */
-@Data
-@Builder
+
 public class Node<T> {
-    UUID position;
+    UUID id= UUID.randomUUID();
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
     T value;
-    List<Node> child = new ArrayList<>();
+
+    public List<Node<T>> getChilds() {
+        return childs;
+    }
+
+    public void setChilds(List<Node<T>> childs) {
+        this.childs = childs;
+    }
+
+    List<Node<T>> childs = new ArrayList<>();
+
+    public Node<T> value(T b) {
+        value=b;
+        return this;
+    }
+
+    public Node<T> add(Node<T> child) {
+        childs.add(child);
+        return this;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }
