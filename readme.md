@@ -26,6 +26,7 @@ Inspired by Actor Concurrency model in erlang/akka,  Incoming queue is message q
 This is designed specially for one client but can be extended to N clients with N outoging queus from server.
 
 Server --> outgoing queue --> Client
+
 Client --> incoming queue --> Server
 
 ### Request and Response
@@ -34,9 +35,11 @@ Any client can request for tree value using Request object which is transportded
 
 ## Running Application
 
+This application is based on Spring Boot Hornetq starter application.
+
 - Install a Java SDK
 - Install gradle or use gradlew
-- BrokerStart is primary entry point to start application.
+- Application.java is primary entry point to start application.
 
 ## Building
 - On windows use 
