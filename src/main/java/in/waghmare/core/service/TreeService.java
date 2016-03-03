@@ -25,6 +25,8 @@ public class TreeService {
 
         root.add(new Node<String>().value("b"));
         root.add(new Node<String>().value("c"));
+        root.add(new Node<String>().value("d"));
+        root.add(new Node<String>().value("e"));
     }
 
     public Node<String> getValue() {
@@ -43,11 +45,14 @@ public class TreeService {
     }
 
     private Node<String> recursive(UUID toSerach, Node<String> node) {
-        if (node.getId() == toSerach) {
+        if (node.getId().equals(toSerach)) {
             return node;
         } else {
             for (Node<String> values : node.getChilds()) {
-                return recursive(toSerach, values);
+                Node matched = recursive(toSerach, values);
+                if (null != matched) {
+                    return matched;
+                }
             }
         }
         return null;

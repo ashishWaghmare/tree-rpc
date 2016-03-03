@@ -6,6 +6,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 
 /**
  * Created by ashishw on 28/2/16.
@@ -17,11 +19,16 @@ public class TimeInvoker {
 
     @Autowired
     private Client client;
-    private int i=0;
 
-    @Scheduled(fixedDelay = 10000L)
-    public void send() {
+
+    @PostConstruct
+    public void start() {
         client.start();
+    }
+
+    @Scheduled(fixedDelay = 100L)
+    public void send() {
+        client.triggerRequest();
     }
 
 }

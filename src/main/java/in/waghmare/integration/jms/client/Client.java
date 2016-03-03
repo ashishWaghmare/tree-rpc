@@ -25,33 +25,40 @@ public class Client {
     private JmsTemplate jmsTemplate;
 
     public ArrayBlockingQueue<UUID> fifo = new ArrayBlockingQueue<>(20);
-
+    Boolean started = false;
 
     @JmsListener(destination = "outgoing")
     public void outgoing(ObjectMessage message) throws JMSException {
         Object value = message.getObject();
         if (value instanceof Response) {
             Response response = (Response) value;
-            System.out.println("Got Value"+response.getValue());
-            for (UUID child : response.getChilds()) {
-                fifo.add(child);
-            }
+            response.getChilds().forEach(child -> fifo.add(child));
+            System.out.println("Received from server::" + response.getValue());
         }
 
+
+    }
+
+    public void triggerRequest() {
         try {
             outgoing(fifo.poll(10, TimeUnit.SECONDS));
         } catch (InterruptedException e) {
             if (fifo.size() == 0) {
                 start();
             } else {
-                return;
+                outgoing(fifo.poll());
             }
         }
     }
 
     public void start() {
-        Request command = new Request();
-        jmsTemplate.convertAndSend("incoming", command);
+        synchronized (started) {
+            if (!started) {
+                Request command = new Request();
+                jmsTemplate.convertAndSend("incoming", command);
+                started = true;
+            }
+        }
     }
 
     public void outgoing(UUID uuid) {

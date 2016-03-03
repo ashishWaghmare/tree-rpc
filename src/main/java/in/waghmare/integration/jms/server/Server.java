@@ -29,9 +29,9 @@ public class Server {
 
     @JmsListener(destination = "incoming")
     public void incoming(ObjectMessage message) throws JMSException {
-        Object value= message.getObject();
-        if(value instanceof Request) {
-            Request request=(Request)value;
+        Object value = message.getObject();
+        if (value instanceof Request) {
+            Request request = (Request) value;
             //immediately  reply
             outgoing(request.getId());
 
@@ -39,18 +39,23 @@ public class Server {
     }
 
     public void outgoing(UUID ref) {
-        Node<String> node=null;
-        if(ref == null){
-            node=treeService.getValue();
+        System.out.println("Received request for ::" + ref);
+        Node<String> node = null;
+        if (ref == null) {
+            node = treeService.getValue();
+        } else {
+            node = treeService.getValue(ref);
         }
-
-        Response response = new Response();
-        response.setValue(node.getValue());
-        List<UUID> childs=new ArrayList<>();
-        node.getChilds().forEach(it -> childs.add(it.getId()));
-        response.setUuid(node.getId());
-        response.setChilds(childs);
-        jmsTemplate.convertAndSend("outgoing", response);
+        if (null != node) {
+            Response response = new Response();
+            response.setValue(node.getValue());
+            System.out.println("Server sending node ::" + node.getValue());
+            List<UUID> childs = new ArrayList<>();
+            node.getChilds().forEach(it -> childs.add(it.getId()));
+            response.setUuid(node.getId());
+            response.setChilds(childs);
+            jmsTemplate.convertAndSend("outgoing", response);
+        }
     }
 
 

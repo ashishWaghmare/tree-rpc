@@ -31,7 +31,7 @@ import javax.jms.ConnectionFactory;
  * Created by ashishw on 28/2/16.
  */
 @SpringBootApplication
-public class BrokerStart {
+public class Application {
 
     @Autowired
     private ConnectionFactory connectionFactory;
@@ -42,7 +42,7 @@ public class BrokerStart {
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(BrokerStart.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

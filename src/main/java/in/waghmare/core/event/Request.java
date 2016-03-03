@@ -12,21 +12,17 @@ import java.util.UUID;
  */
 
 public class Request implements Serializable {
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     private UUID id;
 
-    public Request() {
-
-    }
-
+    public Request() {}
     public Request(UUID id) {
+        this.id = id;
+    }
+    public UUID getId() {
+        return id;
+    }
+    public void setId(UUID id) {
         this.id = id;
     }
 
