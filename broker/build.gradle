@@ -1,0 +1,5 @@
+
+dependencies{
+    compile 'org.springframework.boot:spring-boot-starter-hornetq:1.3.3.RELEASE'
+    compile 'org.hornetq:hornetq-jms-server:2.4.7.Final'
+}
