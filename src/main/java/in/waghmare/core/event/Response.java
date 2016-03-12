@@ -9,8 +9,10 @@ import java.util.UUID;
  */
 public class Response implements Serializable {
 
-    private String value;
+    private Object value;
     private UUID uuid;
+
+    private String clientId;
     private List<UUID> childs;
 
     public UUID getUuid() {
@@ -21,13 +23,6 @@ public class Response implements Serializable {
         this.uuid = uuid;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public List<UUID> getChilds() {
         return childs;
@@ -35,6 +30,22 @@ public class Response implements Serializable {
 
     public void setChilds(List<UUID> childs) {
         this.childs = childs;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 }
 

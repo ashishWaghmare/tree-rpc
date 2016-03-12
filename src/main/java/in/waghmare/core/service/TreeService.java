@@ -12,28 +12,19 @@ import java.util.UUID;
  * Created by ashishw on 1/3/16.
  */
 @Component
-public class TreeService {
+public class TreeService<T> {
 
-    Tree<String> one;
+    Tree<T> one;
     Map<UUID, Node> lookup = new HashMap<>();
 
     public TreeService() {
-
-        Node<String> root = new Node<String>().value("a");
-        one = new Tree<>();
-        one.setRoot(root);
-
-        root.add(new Node<String>().value("b"));
-        root.add(new Node<String>().value("c"));
-        root.add(new Node<String>().value("d"));
-        root.add(new Node<String>().value("e"));
     }
 
-    public Node<String> getValue() {
+    public Node<T> getValue() {
         return one.getRoot();
     }
 
-    public Node<String> getValue(UUID value) {
+    public Node<T> getValue(UUID value) {
         if (lookup.containsKey(value)) {
             return lookup.get(value);
         }
@@ -44,11 +35,11 @@ public class TreeService {
         return matched;
     }
 
-    private Node<String> recursive(UUID toSerach, Node<String> node) {
+    private Node<T> recursive(UUID toSerach, Node<T> node) {
         if (node.getId().equals(toSerach)) {
             return node;
         } else {
-            for (Node<String> values : node.getChilds()) {
+            for (Node<T> values : node.getChilds()) {
                 Node matched = recursive(toSerach, values);
                 if (null != matched) {
                     return matched;

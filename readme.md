@@ -1,3 +1,25 @@
+
+    Challenge #1: RPC Service
+Create an async RPC service and client that communicate over a message bus.
+The goal of the RPC service is to parse trees using recursive decent.
+
+Challenge #2: Family Tree
+
+Semi-structure-to-kickstart-ideas:
+
+Relationship {
+SPOUSE
+MOTHER
+FATHER
+SIBLING
+GRANDPARENT
+OTHER
+NONE
+}
+
+public ? getFamilyTree(); // A call to <Person>.getFamilyTree() will return a graphic (either in text or image) of the person's familial connections with names and relationship shown.
+
+
 ## Objective
 
 Server is having tree stored which has to be served to different clients. Oneof the mechansim to serve this graph is by using Message Queue ( which is hornetq in this case). 

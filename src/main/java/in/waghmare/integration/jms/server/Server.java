@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Server {
 
     @Autowired
-    TreeService treeService;
+    TreeService<Integer> treeService;
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -33,14 +33,13 @@ public class Server {
         if (value instanceof Request) {
             Request request = (Request) value;
             //immediately  reply
-            outgoing(request.getId());
-
+            outgoing(request.getId(),request.getClientId());
         }
     }
 
-    public void outgoing(UUID ref) {
-        System.out.println("Received request for ::" + ref);
-        Node<String> node = null;
+    public void outgoing(UUID ref,String clientId) {
+        System.out.println("Received request for ::" + ref + " from Client ::"+ clientId);
+        Node<Integer> node = null;
         if (ref == null) {
             node = treeService.getValue();
         } else {
@@ -49,7 +48,8 @@ public class Server {
         if (null != node) {
             Response response = new Response();
             response.setValue(node.getValue());
-            System.out.println("Server sending node ::" + node.getValue());
+            response.setClientId(clientId);
+            System.out.println("Server sending node ::" + node.getValue()+ " to client ::"+clientId);
             List<UUID> childs = new ArrayList<>();
             node.getChilds().forEach(it -> childs.add(it.getId()));
             response.setUuid(node.getId());

@@ -1,6 +1,7 @@
 package in.waghmare.integration.jms;
 
-import in.waghmare.integration.jms.client.Client;
+import in.waghmare.integration.jms.client.Client1;
+import in.waghmare.integration.jms.client.Client2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,17 +19,22 @@ public class TimeInvoker {
     private JmsTemplate jmsTemplate;
 
     @Autowired
-    private Client client;
+    private Client1 client1;
+    @Autowired
+    private Client2 client2;
 
 
     @PostConstruct
-    public void start() {
-        client.start();
+    public void start() throws InterruptedException {
+        client1.start();
+        Thread.sleep(100);
+        client2.start();
     }
 
     @Scheduled(fixedDelay = 100L)
     public void send() {
-        client.triggerRequest();
+        client1.triggerRequest();
+        client2.triggerRequest();
     }
 
 }

@@ -19,7 +19,9 @@ import java.util.concurrent.TimeUnit;
  * Created by ashishw on 29/2/16.
  */
 @Component
-public class Client {
+public class Client1 {
+
+    private static final String MY_ID="client1";
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -32,11 +34,12 @@ public class Client {
         Object value = message.getObject();
         if (value instanceof Response) {
             Response response = (Response) value;
-            response.getChilds().forEach(child -> fifo.add(child));
-            System.out.println("Received from server::" + response.getValue());
+            if(MY_ID.equals(response.getClientId())) {
+                response.getChilds().forEach(child -> fifo.add(child));
+                System.out.println("Received for Client 1 from server::" + response.getValue());
+            }
+            //else ignore it
         }
-
-
     }
 
     public void triggerRequest() {
@@ -55,6 +58,7 @@ public class Client {
         synchronized (started) {
             if (!started) {
                 Request command = new Request();
+                command.setClientId(MY_ID);
                 jmsTemplate.convertAndSend("incoming", command);
                 started = true;
             }
@@ -63,6 +67,7 @@ public class Client {
 
     public void outgoing(UUID uuid) {
         Request command = new Request(uuid);
+        command.setClientId(MY_ID);
         jmsTemplate.convertAndSend("incoming", command);
     }
 }

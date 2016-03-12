@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 rootProject.name = 'tree-rpc'
-=======
-rootProject.name = 'example-embedded-broker'
->>>>>>> 64391646b85941cfd6fc379b8f258e915fc00955
+include ":broker"

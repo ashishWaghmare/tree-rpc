@@ -2,6 +2,7 @@ package in.waghmare.core.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import org.hornetq.utils.UUIDGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,27 @@ import java.util.UUID;
  */
 
 public class Node<T> {
-    UUID id= UUID.randomUUID();
+    private UUID id = UUID.randomUUID();
+    private T value;
+    private List<Node<T>> childs = new ArrayList<>();
+
+    public Node(){
+
+    }
+    public Node(T value) {
+        this.value = value;
+    }
+
+
+    public Node<T> value(T b) {
+        value = b;
+        return this;
+    }
+
+    public Node<T> add(Node<T> child) {
+        childs.add(child);
+        return this;
+    }
 
     public T getValue() {
         return value;
@@ -22,8 +43,6 @@ public class Node<T> {
         this.value = value;
     }
 
-    T value;
-
     public List<Node<T>> getChilds() {
         return childs;
     }
@@ -32,17 +51,6 @@ public class Node<T> {
         this.childs = childs;
     }
 
-    List<Node<T>> childs = new ArrayList<>();
-
-    public Node<T> value(T b) {
-        value=b;
-        return this;
-    }
-
-    public Node<T> add(Node<T> child) {
-        childs.add(child);
-        return this;
-    }
 
     public UUID getId() {
         return id;
