@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
-import java.util.Queue;
-import java.util.Stack;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;

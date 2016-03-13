@@ -1,2 +1,4 @@
 rootProject.name = 'tree-rpc'
 include ":broker"
+include ":client"
+include ":server"

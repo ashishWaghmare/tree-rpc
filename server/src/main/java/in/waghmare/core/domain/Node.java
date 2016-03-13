@@ -2,7 +2,6 @@ package in.waghmare.core.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import org.hornetq.utils.UUIDGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

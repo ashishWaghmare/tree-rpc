@@ -1,6 +1,4 @@
-import in.waghmare.core.domain.Node
-import in.waghmare.core.domain.Tree;
-import org.jboss.util.graph.Graph;
+import Tree
 import spock.lang.Specification;
 
 /**

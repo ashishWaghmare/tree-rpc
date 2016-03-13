@@ -43,7 +43,7 @@ Node<T>{
 
 ### Messaging
 
-Application.java is entry point to application which starts embedded HornetQ broker and create two queues incoming and outgoing.
+in.waghmare.ClientMain.java is entry point to application which starts embedded HornetQ broker and create two queues incoming and outgoing.
 Inspired by Actor Concurrency model in erlang/akka,  Incoming queue is message queue for Server and Outgoing queue is message queue for Client.
 This is designed specially for one client but can be extended to N clients with N outoging queus from server.
 
@@ -55,13 +55,13 @@ Client --> incoming queue --> Server
 
 Any client can request for tree value using Request object which is transportded over Queue via JMS. Server will respond with value of Node and along with reference for child nodes. Client can use this reference to navigate further on tree. 
 
-## Running Application
+## Running in.waghmare.ClientMain
 
 This application is based on Spring Boot Hornetq starter application.
 
 - Install a Java SDK
 - Install gradle or use gradlew
-- Application.java is primary entry point to start application.
+- in.waghmare.ClientMain.java is primary entry point to start application.
 
 ## Building
 - On windows use 

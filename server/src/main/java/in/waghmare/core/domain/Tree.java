@@ -3,8 +3,6 @@ package in.waghmare.core.domain;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * Created by ashishw on 28/2/16.
  */
