@@ -1,4 +1,4 @@
-package in.waghmare.integration.jms;
+package in.waghmare.client;
 
 import in.waghmare.integration.jms.client.Client1;
 import in.waghmare.integration.jms.client.Client2;

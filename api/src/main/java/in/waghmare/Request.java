@@ -1,10 +1,6 @@
 package in.waghmare.core.event;
 
 
-import lombok.Data;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -16,6 +12,7 @@ public class Request implements Serializable {
 
     private UUID id;
     private String clientId;
+    private String replyTo;
 
     public Request() {
     }
@@ -38,5 +35,13 @@ public class Request implements Serializable {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
+    }
+
+    public String getReplyTo() {
+        return replyTo;
+    }
+
+    public void setReplyTo(String replyTo) {
+        this.replyTo = replyTo;
     }
 }

@@ -1,4 +1,4 @@
-package in.waghmare.integration.jms.client;
+package in.waghmare.client;
 
 import in.waghmare.core.event.Response;
 import in.waghmare.core.event.Request;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * Created by ashishw on 29/2/16.
  */
 @Component
-public class Client1 {
+public class Client {
 
     private static final String MY_ID="client1";
 

@@ -1,4 +1,4 @@
-package in.waghmare.integration.jms.server;
+package in.waghmare.server;
 
 import in.waghmare.core.domain.Node;
 import in.waghmare.core.event.Request;
