@@ -1,8 +1,8 @@
 package in.waghmare.server;
 
-import in.waghmare.core.domain.Node;
 import in.waghmare.Request;
 import in.waghmare.Response;
+import in.waghmare.core.domain.Node;
 import in.waghmare.core.service.TreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

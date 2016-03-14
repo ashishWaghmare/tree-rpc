@@ -1,29 +1,6 @@
-
-    Challenge #1: RPC Service
-Create an async RPC service and client that communicate over a message bus.
-The goal of the RPC service is to parse trees using recursive decent.
-
-Challenge #2: Family Tree
-
-Semi-structure-to-kickstart-ideas:
-
-Relationship {
-SPOUSE
-MOTHER
-FATHER
-SIBLING
-GRANDPARENT
-OTHER
-NONE
-}
-
-public ? getFamilyTree(); // A call to <Person>.getFamilyTree() will return a graphic (either in text or image) of the person's familial connections with names and relationship shown.
-
-
 ## Objective
 
 Server is having tree stored which has to be served to different clients. Oneof the mechansim to serve this graph is by using Message Queue ( which is hornetq in this case). 
-
 
 ## Overview
 
@@ -64,9 +41,23 @@ This application is based on Spring Boot Hornetq starter application.
 - in.waghmare.ClientMain.java is primary entry point to start application.
 
 ## Building
-- On windows use 
-- gradlew.bat bootRun
-- ./gradlew bootRun
+On windows use gradlew.bat or else use ./gradlew 
+
+### Steps to start one JVM 
+* Open new shell/cmd prompt in windows.
+* Go to directory of broker/server or client.
+* Issue command
+* gradle clean bootRun
+
+## JVM order of starting application
+* Start Broker first which has graph queue
+* Start Server which can serve request for Tree
+* Start Client which will periodically make request to server via broker.
+* You can start more Clients as you want since every client creates seprate temporary queue for response.
+
+
+
+
 
 Run:
 
