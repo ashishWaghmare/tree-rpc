@@ -32,8 +32,8 @@ public class Server {
     @PostConstruct
     public void init() {
         treeService.buildTree(1, 2, 3);
-        treeService.buildTree(2, 3, 4);
-        treeService.buildTree(2, 4, 5);
+        treeService.buildTree(2, 7, 8);
+        treeService.buildTree(3, 9, 10);
     }
 
 
