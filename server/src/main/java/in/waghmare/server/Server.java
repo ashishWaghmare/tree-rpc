@@ -1,14 +1,16 @@
 package in.waghmare.server;
 
 import in.waghmare.core.domain.Node;
-import in.waghmare.core.event.Request;
-import in.waghmare.core.event.Response;
+import in.waghmare.Request;
+import in.waghmare.Response;
 import in.waghmare.core.service.TreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import java.util.ArrayList;
@@ -27,18 +29,27 @@ public class Server {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = "incoming")
-    public void incoming(ObjectMessage message) throws JMSException {
-        Object value = message.getObject();
-        if (value instanceof Request) {
-            Request request = (Request) value;
+    @PostConstruct
+    public void init() {
+        treeService.buildTree(1, 2, 3);
+        treeService.buildTree(2, 3, 4);
+        treeService.buildTree(2, 4, 5);
+    }
+
+
+    @JmsListener(destination = "graph")
+    public void incoming(Message message) throws JMSException {
+        Object payload=message.getPayload();
+        if (payload instanceof Request) {
+            Request request = (Request)payload;
             //immediately  reply
-            outgoing(request.getId(),request.getClientId());
+            Response response = getResponse(request.getId(), request.getClientId());
+            jmsTemplate.convertAndSend(request.getReplyTo(), response);
         }
     }
 
-    public void outgoing(UUID ref,String clientId) {
-        System.out.println("Received request for ::" + ref + " from Client ::"+ clientId);
+    public Response getResponse(UUID ref, String clientId) {
+        System.out.println("Received request for ::" + ref + " from Client ::" + clientId);
         Node<Integer> node = null;
         if (ref == null) {
             node = treeService.getValue();
@@ -49,14 +60,13 @@ public class Server {
             Response response = new Response();
             response.setValue(node.getValue());
             response.setClientId(clientId);
-            System.out.println("Server sending node ::" + node.getValue()+ " to client ::"+clientId);
+            System.out.println("Server sending node ::" + node.getValue() + " to client ::" + clientId);
             List<UUID> childs = new ArrayList<>();
             node.getChilds().forEach(it -> childs.add(it.getId()));
             response.setUuid(node.getId());
             response.setChilds(childs);
-            jmsTemplate.convertAndSend("outgoing", response);
+            return response;
         }
+        return null;
     }
-
-
 }

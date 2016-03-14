@@ -1,8 +1,5 @@
 package in.waghmare.core.domain;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,9 +13,9 @@ public class Node<T> {
     private T value;
     private List<Node<T>> childs = new ArrayList<>();
 
-    public Node(){
-
+    public Node() {
     }
+
     public Node(T value) {
         this.value = value;
     }

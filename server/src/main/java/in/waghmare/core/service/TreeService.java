@@ -4,8 +4,6 @@ import in.waghmare.core.domain.Node;
 import in.waghmare.core.domain.Tree;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -13,39 +11,23 @@ import java.util.UUID;
  */
 @Component
 public class TreeService<T> {
-
-    Tree<T> one;
-    Map<UUID, Node> lookup = new HashMap<>();
+    Tree<T> singleTree = new Tree<>();
 
     public TreeService() {
     }
 
     public Node<T> getValue() {
-        return one.getRoot();
+        return singleTree.getRoot();
     }
 
-    public Node<T> getValue(UUID value) {
-        if (lookup.containsKey(value)) {
-            return lookup.get(value);
-        }
-        Node matched = recursive(value, one.getRoot());
-        if (null != matched) {
-            lookup.put(value, matched);
-        }
-        return matched;
+    public Node<T> getValue(UUID id) {
+        return singleTree.getValue(id);
     }
 
-    private Node<T> recursive(UUID toSerach, Node<T> node) {
-        if (node.getId().equals(toSerach)) {
-            return node;
-        } else {
-            for (Node<T> values : node.getChilds()) {
-                Node matched = recursive(toSerach, values);
-                if (null != matched) {
-                    return matched;
-                }
-            }
+
+    public void buildTree(T parent, T... childs) {
+        for (T child : childs) {
+            singleTree.add(parent, child);
         }
-        return null;
     }
 }

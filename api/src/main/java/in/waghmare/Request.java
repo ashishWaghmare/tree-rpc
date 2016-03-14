@@ -1,4 +1,4 @@
-package in.waghmare.core.event;
+package in.waghmare;
 
 
 import java.io.Serializable;
