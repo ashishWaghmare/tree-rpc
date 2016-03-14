@@ -19,20 +19,25 @@ Node<T>{
 }
 
 ### Messaging
-
-in.waghmare.ClientMain.java is entry point to application which starts embedded HornetQ broker and create two queues incoming and outgoing.
 Inspired by Actor Concurrency model in erlang/akka,  Incoming queue is message queue for Server and Outgoing queue is message queue for Client.
 This is designed specially for one client but can be extended to N clients with N outoging queus from server.
 
-Server --> outgoing queue --> Client
+Client1 --> graph service queue --> Server
+Server --> temporary queue for each client 1 --> Client1
 
-Client --> incoming queue --> Server
+Client2 --> graph service queue --> Server
+Server --> temporary queue for each client 2 --> Client2
+.
+.
+.
+Client N --> graph service queue --> Server
+Server --> temporary queue for each client N --> Client N
 
 ### Request and Response
 
 Any client can request for tree value using Request object which is transportded over Queue via JMS. Server will respond with value of Node and along with reference for child nodes. Client can use this reference to navigate further on tree. 
 
-## Running in.waghmare.ClientMain
+## Running 
 
 This application is based on Spring Boot Hornetq starter application.
 
@@ -40,8 +45,9 @@ This application is based on Spring Boot Hornetq starter application.
 - Install gradle or use gradlew
 - in.waghmare.ClientMain.java is primary entry point to start application.
 
-## Building
+### Building
 On windows use gradlew.bat or else use ./gradlew 
+
 
 ### Steps to start one JVM 
 * Open new shell/cmd prompt in windows.
@@ -49,22 +55,14 @@ On windows use gradlew.bat or else use ./gradlew
 * Issue command
 * gradle clean bootRun
 
-## JVM order of starting application
+### JVM order of starting application
 * Start Broker first which has graph queue
 * Start Server which can serve request for Tree
 * Start Client which will periodically make request to server via broker.
 * You can start more Clients as you want since every client creates seprate temporary queue for response.
 
-
-
-
-
-Run:
-
 ## Further Improvements
 
-- Make all broker client and server into 3 different JVM
-- Enable N client by passing response QueueName in request object and server using it to reply back.
-- Write testcases for TreeService
-
+- Write more test cases for Tree 
+- Extend code for Graph
 
